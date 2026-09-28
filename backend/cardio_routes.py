@@ -11,7 +11,7 @@ from schemas import (
 import database
 
 router = APIRouter(tags=["Workouts"])
-
+# vova_gnoy
 # Принудительно загружаем переменные из файла .env
 load_dotenv()
 # Теперь os.getenv точно найдет ключ, а не выдаст None
