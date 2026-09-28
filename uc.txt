@@ -1,0 +1,9 @@
+cd ~/TelegramApp
+source venv/bin/activate
+cd backend 
+uvicorn main:app --reload --port 8000 
+
+
+
+ngrok http --url=decidable-caloric-scrawny.ngrok-free.dev 8000
+ngrok config add-authtoken 3JuRwXEP05i184ZpHONgYHKE9CH_2BWFzymtf5N46kx5Q4Lah
