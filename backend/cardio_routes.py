@@ -66,30 +66,39 @@ async def analyze_workout_endpoint(payload: WorkoutAnalyzeRequest):
 }}
 """
 
-        # Вызов модели с фоллбеком (сначала пробуем gemini-3.8-flash, при перегрузке/ошибке — gemini-2.5-flash-lite)
+        # 1. Пытаемся вызвать основную модель
         try:
             response = client.models.generate_content(
                 model="gemini-3.8-flash",
                 contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json"
-                )
+                config=types.GenerateContentConfig(response_mime_type="application/json")
             )
+            ai_data = json.loads(response.text)
+            
         except Exception as primary_err:
-            # Проверяем, стоит ли переключиться на запасную модель (например, перегрузка 429/503 или любая ошибка генерации)
-            response = client.models.generate_content(
-                model="gemini-3.5-flash-lite",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json"
+            print(f"Ошибка 3.8-flash: {primary_err}")
+            # 2. Пытаемся вызвать запасную модель
+            try:
+                response = client.models.generate_content(
+                    model="gemini-3.5-flash",
+                    contents=prompt,
+                    config=types.GenerateContentConfig(response_mime_type="application/json")
                 )
-            )
-        
-        # Парсим ответ нейросети
-        ai_data = json.loads(response.text)
+                ai_data = json.loads(response.text)
+                
+            except Exception as secondary_err:
+                print(f"Ошибка 2.5-flash: {secondary_err}")
+                # 3. Если ОБЕ модели лежат (503), выдаем дефолтный ответ, чтобы не сломать приложение
+                ai_data = {
+                    "coach_notes": "Тренировка успешно сохранена! 💪 (AI-тренер временно перегружен запросами, поэтому детальный разбор недоступен. Продолжай в том же духе!)",
+                    "next_workout": []
+                }
+
+        # Дальше твой код парсинга и сохранения в базу
         coach_notes = ai_data.get("coach_notes", "Тренировка успешно сохранена.")
         next_workout = ai_data.get("next_workout", [])
-
+        
+        # ... await database.save_strength_workout(...)
         workout_data = {
             "workout_name": payload.workout_name,
             "exercises": exercises_dump,
@@ -105,7 +114,7 @@ async def analyze_workout_endpoint(payload: WorkoutAnalyzeRequest):
             "workout": workout_data
         }
     except Exception as e:
-        raise HTTPException(sыtatus_code=500, detail=f"Analysis failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
 
 @router.get("/api/workout/by-date")
 async def get_workout_by_date(user_id: str, workout_date: str):
