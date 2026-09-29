@@ -382,13 +382,18 @@
         }
 
         // ОБНОВЛЕННАЯ ЛОГИКА ЗАГРУЗКИ ДАТ (поддержка кардио и силовых)
+        // ОБНОВЛЕННАЯ ЛОГИКА ЗАГРУЗКИ ДАТ (поддержка кардио и силовых)
         async function loadMonthData() {
             const year = currentDate.getFullYear();
             const month = String(currentDate.getMonth() + 1).padStart(2, '0');
             const yearMonth = `${year}-${month}`;
             try {
-                // Вызываем новый эндпоинт, который возвращает массив объектов {date, has_strength, has_cardio}
-                const res = await fetch(`/api/workouts/calendar/month-status?year_month=${yearMonth}`);
+                // ДОБАВЛЕНО: &_t=${Date.now()} обходит кэш, а заголовок убирает предупреждения ngrok
+                const res = await fetch(`/api/workouts/calendar/month-status?year_month=${yearMonth}&_t=${Date.now()}`, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
                 if (res.ok) {
                     const data = await res.json();
                     calendarMarkers = {};
@@ -574,15 +579,29 @@
         function closeConfirmModal() { document.getElementById('confirm-modal').classList.add('hidden'); }
         
         async function confirmDeleteWorkout() {
-            closeConfirmModal();
+            closeConfirmModal(); // Закрываем маленькое окошко "Вы уверены?"
             try {
-                const res = await fetch(`/api/workout?user_id=${currentUserId}&workout_date=${selectedDateStr}`, { method: 'DELETE' });
+                const res = await fetch(`/api/workout?user_id=${currentUserId}&workout_date=${selectedDateStr}`, { 
+                    method: 'DELETE',
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
                 const data = await res.json();
                 if (data.status === "success") { 
                     currentLoadedWorkout = null; 
                     clearDraft(); 
-                    // Обновляем календарь (точки исчезнут)
+                    
+                    // ДОБАВЛЕНО: Закрываем основное окно тренировки
+                    closeModal(); 
+                    
+                    // Обновляем календарь (теперь он скачает свежие данные без кэша)
                     await loadMonthData(); 
+                    
+                    // ДОБАВЛЕНО: Вибрация об успешном удалении
+                    if (window.Telegram?.WebApp?.HapticFeedback) {
+                        window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+                    }
                 }
             } catch (err) { 
                 alert("Ошибка удаления: " + err.message); 
