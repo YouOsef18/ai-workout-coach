@@ -1,0 +1,17 @@
+// scss/main.scss
+
+// 1. Abstracts (переменные, миксины, функции)
+@import 'abstracts/variables';
+
+// 2. Base (сброс стилей, глобальные настройки тегов, типографика)
+@import 'base/base';
+
+// 3. Layout (шапка, сетка приложения, общие структуры страницы)
+@import 'layout/header';
+
+@import 'components/calendar';
+@import 'components/inputs';
+@import 'components/cards';
+@import 'components/timer';
+@import 'components/modals';
+@import 'components/loader';
