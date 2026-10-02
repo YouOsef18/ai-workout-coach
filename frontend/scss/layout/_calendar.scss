@@ -1,0 +1,132 @@
+.calendar-section {
+    background: var(--tg-sec-bg, var(--card-bg));
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.calendar-weekdays, .grid-7 {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    text-align: center;
+}
+
+.calendar-weekdays, .weekdays {
+    margin-bottom: 8px;
+}
+
+.weekday {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tg-hint, var(--text-muted));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 6px;
+
+    &.weekend {
+        color: var(--accent);
+    }
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+// Стили ячейки дня
+.day-cell, .day-btn {
+    aspect-ratio: 1;
+    height: 54px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    color: var(--tg-text, #e2e8f0);
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: transform 0.1s ease, background 0.2s ease, border-color 0.2s ease;
+
+    &:active {
+        background: var(--card-bg);
+        transform: scale(0.92);
+    }
+
+    &.other-month {
+        opacity: 0.25;
+    }
+
+    &.today {
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid var(--accent, var(--tg-btn));
+        color: var(--accent, var(--tg-btn));
+        font-weight: 800;
+    }
+
+    &.selected {
+        background: rgba(56, 189, 248, 0.15);
+        border-color: var(--tg-btn);
+    }
+}
+
+// Точки тренировок на календаре
+.workout-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 4px;
+}
+
+.dot-placeholder {
+    width: 5px;
+    height: 5px;
+    margin-top: 4px;
+}
+
+// Разноцветные маркеры (силовые / кардио)
+.day-markers {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    bottom: 6px;
+}
+
+.marker-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.marker-strength {
+    background-color: var(--strength-green);
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+
+.marker-cardio {
+    background-color: var(--cardio-red);
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+}
+
+// Анимация смены месяцев в календаре
+#calendar-days {
+    touch-action: pan-y;
+    min-height: 300px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+}
+
+.calendar-slide-left {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.calendar-slide-right {
+    transform: translateX(20px);
+    opacity: 0;
+}
