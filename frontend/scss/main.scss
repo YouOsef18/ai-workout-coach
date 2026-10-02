@@ -5,6 +5,7 @@
 
 // 2. Base (сброс стилей, глобальные настройки тегов, типографика)
 @import 'base/base';
+@import 'base/typography';
 
 // 3. Layout (шапка, сетка приложения, общие структуры страницы)
 @import 'layout/header';

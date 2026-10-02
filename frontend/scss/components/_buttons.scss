@@ -61,3 +61,25 @@ button {
         border-color: rgba(255, 255, 255, 0.4);
     }
 }
+
+/* Замени .add-set-btn на тот класс или тег, который висит на кнопке "+ подход" в разметке */
+.add-btn-sub, 
+button.add-btn-sub {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+    color: #cbd5e1 !important;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 6px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.4) !important;
+        color: #fff !important;
+    }
+}

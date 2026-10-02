@@ -1,0 +1,46 @@
+/* Базовые стили текста и типографика */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #f8fafc; // Основной цвет текста (светлый)
+    background-color: #0f172a; // Фоновый цвет приложения
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Метки полей ввода (например, "Фокус дня", "Самочувствие и симптомы") */
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Второстепенный / приглушенный текст */
+.text-muted {
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* Дни недели в календаре */
+.weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+/* Заголовок календаря (месяц и год) */
+.calendar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
