@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --tg-bg: var(--tg-theme-bg-color, #0f172a);
   --tg-sec-bg: var(--tg-theme-secondary-bg-color, #1e293b);
@@ -735,4 +736,124 @@ input[type=text]:focus, input[type=number]:focus, textarea:focus {
   background: var(--accent);
   transition: width 0.3s ease;
   box-shadow: 0 0 10px var(--accent);
+}
+
+/* Общие стили кнопок */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  transition: background 0.2s, transform 0.1s;
+}
+button:active {
+  transform: scale(0.97);
+}
+
+/* Навигационные стрелочки в календаре */
+.nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Кнопки действий (главные синие/акцентные) */
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 16px;
+}
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+/* Кнопка добавления упражнения */
+.add-exercise-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  color: #cbd5e1;
+  font-size: 13px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+.add-exercise-btn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Стили для баннеров и кастомных картинок */
+.banner-frame {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.banner-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 16px;
+  color: #fff;
+}
+
+.banner-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent, #3b82f6);
+  margin-bottom: 4px;
+}
+
+.banner-text {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.custom-image-frame {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+.custom-image-frame img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }/*# sourceMappingURL=main.css.map */
