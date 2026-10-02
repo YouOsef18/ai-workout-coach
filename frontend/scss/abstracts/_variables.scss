@@ -1,0 +1,23 @@
+:root {
+    // Цветовая палитра Telegram & приложения
+    --tg-bg: var(--tg-theme-bg-color, #0f172a);
+    --tg-sec-bg: var(--tg-theme-secondary-bg-color, #1e293b);
+    --tg-text: var(--tg-theme-text-color, #f8fafc);
+    --tg-hint: var(--tg-theme-hint-color, #94a3b8);
+    --tg-btn: var(--tg-theme-button-color, #38bdf8);
+    --tg-btn-text: var(--tg-theme-button-text-color, #ffffff);
+
+    // Дополнительные цвета для трекера тренировок
+    --bg-main: #030712;
+    --card-bg: #0f172a;
+    --card-inner: #090d16;
+    --border: #1e293b;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --danger: #f43f5e;
+    --danger-hover: #e11d48;
+    --warning: #fbbf24;
+    --warning-bg: rgba(251, 191, 36, 0.18);
+    --cardio-red: #ef4444;
+    --strength-green: #22c55e;
+}
