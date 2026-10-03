@@ -13,6 +13,7 @@ class CardioSubtype(str, Enum):
 
 # --- Схемы Кардио ---
 class CardioWorkoutCreate(BaseModel):
+    user_id: int
     date: str = Field(..., pattern=r"^\d{4}-\d{2}-\d{2}$")
     workout_type: WorkoutType = Field(default=WorkoutType.CARDIO)
     subtype: CardioSubtype

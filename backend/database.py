@@ -9,6 +9,7 @@ async def init_db():
         await db.execute("""
             CREATE TABLE IF NOT EXISTS cardio_workouts (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL, 
                 date TEXT NOT NULL,
                 subtype TEXT NOT NULL,
                 distance_km REAL NOT NULL,
@@ -36,11 +37,21 @@ async def init_db():
 async def add_cardio_workout(data: dict) -> int:
     async with aiosqlite.connect(DB_NAME) as db:
         cursor = await db.execute("""
-            INSERT INTO cardio_workouts (date, subtype, distance_km, duration_sec, avg_pace)
-            VALUES (?, ?, ?, ?, ?)
-        """, (data["date"], data["subtype"], data["distance_km"], data["duration_sec"], data["avg_pace"]))
+            INSERT INTO cardio_workouts (user_id, date, subtype, distance_km, duration_sec, avg_pace)
+
+
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (data["user_id"], data["date"], data["subtype"], data["distance_km"], data["duration_sec"], data["avg_pace"]))
         await db.commit()
         return cursor.lastrowid
+    
+async def delete_cardio_workout(user_id: int, date: str):
+    async with aiosqlite.connect(DB_NAME) as db:
+        # Удаляем силовую тренировку
+        await db.execute("DELETE FROM cardio_workouts WHERE user_id = ? AND date = ?", (user_id, date))
+        await db.commit()
+
+
 
 # --- Методы Силовых ---
 async def save_strength_workout(user_id: int, date: str, workout_data: dict):
@@ -64,17 +75,15 @@ async def delete_strength_workout(user_id: int, date: str):
     async with aiosqlite.connect(DB_NAME) as db:
         # Удаляем силовую тренировку
         await db.execute("DELETE FROM strength_workouts WHERE user_id = ? AND date = ?", (user_id, date))
-        # Удаляем кардио-тренировку (там нет user_id, поэтому удаляем просто по дате)
-        await db.execute("DELETE FROM cardio_workouts WHERE date = ?", (date,))
         await db.commit()
 
 # --- Метод Календаря ---
-async def get_month_markers(year_month: str):
+async def get_month_markers(year_month: str, user_id: int):
     async with aiosqlite.connect(DB_NAME) as db:
-        async with db.execute("SELECT DISTINCT date FROM cardio_workouts WHERE date LIKE ?", (f"{year_month}%",)) as cursor:
+        async with db.execute("SELECT DISTINCT date FROM cardio_workouts WHERE user_id = ? AND date LIKE ?", (user_id, f"{year_month}%")) as cursor:
             cardio_dates = {row[0] for row in await cursor.fetchall()}
 
-        async with db.execute("SELECT DISTINCT date FROM strength_workouts WHERE date LIKE ?", (f"{year_month}%",)) as cursor:
+        async with db.execute("SELECT DISTINCT date FROM strength_workouts WHERE user_id = ? AND date LIKE ?", (user_id, f"{year_month}%")) as cursor:
             strength_dates = {row[0] for row in await cursor.fetchall()}
 
         all_dates = cardio_dates | strength_dates
