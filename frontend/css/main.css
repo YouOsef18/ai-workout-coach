@@ -438,7 +438,7 @@ input[type=text]:focus, input[type=number]:focus, textarea:focus {
   gap: 4px;
 }
 .timer-container .timer-inputs input {
-  width: 42px !important;
+  width: 50px !important;
   padding: 6px 4px !important;
   text-align: center;
   font-size: 18px !important;
@@ -498,14 +498,19 @@ input[type=text]:focus, input[type=number]:focus, textarea:focus {
 }
 .modal-overlay, .modal-backdrop {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-items: center; /* Центрирование по вертикали (или flex-end для шторки снизу) */
+  justify-content: center; /* Центрирование по горизонтали */
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
 }
 .modal-overlay.hidden, .modal-backdrop.hidden {
   display: none !important;
