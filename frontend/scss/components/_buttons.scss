@@ -62,7 +62,7 @@ button {
     }
 }
 
-/* Замени .add-set-btn на тот класс или тег, который висит на кнопке "+ подход" в разметке */
+
 .add-btn-sub, 
 button.add-btn-sub {
     background: rgba(255, 255, 255, 0.03) !important;
@@ -78,8 +78,8 @@ button.add-btn-sub {
     margin-top: 6px;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.06) !important;
-        border-color: rgba(255, 255, 255, 0.4) !important;
-        color: #fff !important;
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.4);
+        color: #fff;
     }
 }

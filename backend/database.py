@@ -1,5 +1,5 @@
-import aiosqlite
 import json
+import aiosqlite
 
 DB_NAME = "workout_app.db"
 
