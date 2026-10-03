@@ -1,0 +1,121 @@
+
+#barbell-loader, .barbell-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(3, 7, 18, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+
+    &:not(.hidden) {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.loader-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px 24px;
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+
+    .loader-status {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        text-align: center;
+        margin-bottom: 20px;
+        min-height: 40px;
+    }
+
+    .total-weight-display {
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 16px;
+    }
+}
+
+.barbell-scene, .barbell-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.bar-center {
+    width: 120px;
+    height: 12px;
+    background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    .bar-weight-label {
+        font-size: 8px;
+        font-weight: 900;
+        color: #0f172a;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    }
+}
+
+.plates-sleeve, .plates-side {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 80px;
+
+    &.left { flex-direction: row-reverse; }
+    &.right { flex-direction: row; }
+}
+
+.plate {
+    width: 10px;
+    border-radius: 3px;
+    box-shadow: inset -2px 0 4px rgba(0,0,0,0.3);
+    animation: dropPlate 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+    &-25 { height: 76px; background: #ef4444; border-left: 2px solid #b91c1c; width: 14px; }
+    &-20 { height: 68px; background: #3b82f6; border-left: 2px solid #1d4ed8; width: 12px; }
+    &-15 { height: 58px; background: #eab308; border-left: 2px solid #a16207; width: 10px; }
+    &-10 { height: 48px; background: #22c55e; border-left: 2px solid #15803d; width: 8px; }
+}
+
+@keyframes dropPlate {
+    0% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.progress-track, .loader-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--card-inner);
+    border-radius: 3px;
+    overflow: hidden;
+
+    #progress-fill, .loader-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        transition: width 0.3s ease;
+        box-shadow: 0 0 10px var(--accent);
+    }
+}

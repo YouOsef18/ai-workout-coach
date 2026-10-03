@@ -1,6 +1,9 @@
-class CardioTracker {
+import { state } from '../state.js';
+import { saveCardioApi } from '../api.js';
+import { haptic } from '../utils/telegram.js';
+
+export class CardioTracker {
     constructor() {
-        this.selectedDate = new Date().toISOString().split('T')[0];
         this.selectedSubtype = 'easy_run';
 
         this.modal = document.getElementById('workout-type-modal');
@@ -25,20 +28,10 @@ class CardioTracker {
         this.calculatePace();
     }
 
-    haptic(type = 'light') {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            if (['success', 'error', 'warning'].includes(type)) {
-                window.Telegram.WebApp.HapticFeedback.notificationOccurred(type);
-            } else {
-                window.Telegram.WebApp.HapticFeedback.impactOccurred(type);
-            }
-        }
-    }
-
     initEvents() {
         this.presetChips.forEach(chip => {
             chip.addEventListener('click', () => {
-                this.haptic('light');
+                haptic('light');
                 this.presetChips.forEach(c => c.classList.remove('active'));
                 chip.classList.add('active');
                 this.selectedSubtype = chip.dataset.subtype;
@@ -53,22 +46,21 @@ class CardioTracker {
         });
 
         this.btnSelectStrength.addEventListener('click', () => {
-            this.haptic('medium');
+            haptic('medium');
             this.closeModal();
-            // Возвращаем вызов твоего родного интерфейса из index.html
-            if (typeof openDateModal === 'function') {
-                openDateModal(this.selectedDate);
+            if (typeof window.openDateModal === 'function') {
+                window.openDateModal(state.selectedDateStr);
             }
         });
 
         this.btnSelectCardio.addEventListener('click', () => {
-            this.haptic('medium');
+            haptic('medium');
             this.closeModal();
             this.cardioView.classList.remove('hidden');
         });
 
         this.btnCloseCardio.addEventListener('click', () => {
-            this.haptic('light');
+            haptic('light');
             this.cardioView.classList.add('hidden');
         });
 
@@ -80,7 +72,7 @@ class CardioTracker {
     }
 
     adjustDistance(delta) {
-        this.haptic('light');
+        haptic('light');
         let current = Math.max(0.1, (parseFloat(this.inputDistance.value) || 0) + delta);
         this.inputDistance.value = current.toFixed(1);
         this.calculatePace();
@@ -102,8 +94,8 @@ class CardioTracker {
     }
 
     openDateSelector(dateStr) {
-        this.haptic('light');
-        this.selectedDate = dateStr;
+        haptic('light');
+        state.selectedDateStr = dateStr;
         this.modalDateEl.textContent = `Дата: ${dateStr}`;
         this.modal.classList.remove('hidden');
     }
@@ -117,64 +109,24 @@ class CardioTracker {
         const totalDurationSec = ((parseInt(this.inputMin.value) || 0) * 60) + (parseInt(this.inputSec.value) || 0);
 
         try {
-            const response = await fetch('/api/workouts/cardio', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    date: this.selectedDate,
-                    workout_type: 'cardio',
-                    subtype: this.selectedSubtype,
-                    distance_km: distance,
-                    duration_sec: totalDurationSec,
-                    avg_pace: this.paceDisplay.textContent
-                })
+            await saveCardioApi({
+                date: state.selectedDateStr,
+                workout_type: 'cardio',
+                subtype: this.selectedSubtype,
+                distance_km: distance,
+                duration_sec: totalDurationSec,
+                avg_pace: this.paceDisplay.textContent
             });
 
-            if (!response.ok) throw new Error('Failed to save cardio workout');
-
-            this.haptic('success');
-            
-            // Прячем экран кардио
+            haptic('success');
             this.cardioView.classList.add('hidden');
 
-            // ПРОСТО И НАДЕЖНО: просим главный скрипт загрузить месяц заново.
-            // Он сам стянет данные из SQLite и правильно расставит все точки (и красные, и зеленые).
             if (typeof window.loadMonthData === 'function') {
                 window.loadMonthData();
             }
-
         } catch (error) {
-            this.haptic('error');
-            // Уточнил текст ошибки, так как сервер отбивает 422 ошибку, 
-            // если случайно попытаться сохранить дистанцию или время равными нулю
+            haptic('error');
             alert('Ошибка при сохранении пробежки. Проверьте, что дистанция и время больше 0.');
         }
     }
-
-    renderCalendarMarker(dateStr, type) {
-        const cell = document.querySelector(`.day-cell[data-date="${dateStr}"]`);
-        if (!cell) return;
-
-        let markersContainer = cell.querySelector('.day-markers');
-        if (!markersContainer) {
-            markersContainer = document.createElement('div');
-            markersContainer.className = 'day-markers';
-            cell.appendChild(markersContainer);
-        }
-
-        const markerClass = type === 'cardio' ? 'marker-cardio' : 'marker-strength';
-        if (!markersContainer.querySelector(`.${markerClass}`)) {
-            const dot = document.createElement('div');
-            dot.className = `marker-dot ${markerClass}`;
-            markersContainer.appendChild(dot);
-        }
-    }
-}
-
-const cardioApp = new CardioTracker();
-
-// Замени вызов функции создания тренировки в твоем основном скрипте (app.js)
-// на вызов этой функции при клике по дню календаря:
-function onCalendarDayClick(dateString) {
-    cardioApp.openDateSelector(dateString);
 }

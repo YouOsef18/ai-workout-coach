@@ -1,0 +1,158 @@
+// Общий оверлей модального окна (затемнение фона)
+.modal-overlay, .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center; /* Центрирование по вертикали (или flex-end для шторки снизу) */
+    justify-content: center; /* Центрирование по горизонтали */
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+
+    &.hidden {
+        display: none !important;
+    }
+}
+
+// Выдвижная шторка снизу (Bottom Sheet)
+.modal-sheet {
+    background: var(--card-bg, var(--tg-sec-bg));
+    border-top: 1px solid var(--border);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 16px 0 32px 0;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 auto 16px auto;
+}
+
+.modal-header {
+    padding: 0 20px 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .modal-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--tg-text, var(--text));
+        margin: 0;
+    }
+
+    .modal-subtitle {
+        font-size: 14px;
+        color: var(--tg-hint, var(--text-muted));
+        margin: 0;
+    }
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-muted);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+// Модальное окно подтверждения действия (диалог)
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.confirm-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    .confirm-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .confirm-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 18px;
+    }
+
+    .confirm-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+.btn-dialog {
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+
+    &-no {
+        background: var(--card-inner);
+        color: var(--text);
+        border: 1px solid var(--border);
+    }
+
+    &-yes {
+        background: var(--danger);
+        color: #fff;
+    }
+}

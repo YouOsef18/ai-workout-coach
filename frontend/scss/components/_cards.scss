@@ -1,0 +1,96 @@
+
+// Карточка упражнения в модалке тренировки / просмотра
+.exercise-block, .view-card {
+    background: var(--card-inner, var(--tg-bg));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .exercise-title-input {
+        background: transparent !important;
+        border: none !important;
+        color: var(--tg-text, var(--text)) !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        padding: 0 !important;
+        width: 80%;
+    }
+
+    .remove-ex-btn {
+        background: none;
+        border: none;
+        color: var(--danger);
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+
+// Сетка подходов (вес, повторения, RPE)
+.set-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    background: var(--card-bg, var(--tg-sec-bg));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 10px;
+    align-items: center;
+
+    label {
+        display: block;
+        font-size: 9px;
+        text-transform: uppercase;
+        color: var(--tg-hint, var(--text-muted));
+        margin-bottom: 2px;
+    }
+
+    input {
+        padding: 6px !important;
+        border-radius: 8px !important;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .rpe-input {
+        color: var(--accent) !important;
+    }
+}
+
+// Кнопки действий (сохранить, добавить)
+.action-btn {
+    width: 100%;
+    background: var(--accent, var(--tg-btn));
+    color: #022c22;
+    border: none;
+    border-radius: 16px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.add-exercise-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--text-muted);
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
