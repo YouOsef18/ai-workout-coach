@@ -54,6 +54,53 @@ body {
   display: none !important;
 }
 
+/* Базовые стили текста и типографика */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #f8fafc;
+  background-color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Метки полей ввода (например, "Фокус дня", "Самочувствие и симптомы") */
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Второстепенный / приглушенный текст */
+.text-muted {
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* Дни недели в календаре */
+.weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* Заголовок календаря (месяц и год) */
+.calendar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
 .app-header {
   text-align: center;
   padding: 10px 0;
@@ -798,6 +845,27 @@ button:active {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
+.add-btn-sub,
+button.add-btn-sub {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+  color: #cbd5e1 !important;
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 6px;
+}
+.add-btn-sub:hover,
+button.add-btn-sub:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
 /* Стили для баннеров и кастомных картинок */
 .banner-frame {
   position: relative;
@@ -860,313 +928,279 @@ button:active {
 
 /* Шторка выбора типа тренировки (Силовые / Кардио) */
 #workout-type-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-
-    &.hidden {
-        display: none !important;
-    }
-
-    .modal-sheet {
-        background: #1e293b;
-        width: 100%;
-        max-width: 500px;
-        border-radius: 20px 20px 0 0;
-        padding: 24px 20px;
-        box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-handle {
-        width: 36px;
-        height: 4px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 2px;
-        margin: 0 auto 16px auto;
-    }
-
-    .modal-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 4px;
-        text-align: center;
-    }
-
-    .modal-subtitle {
-        font-size: 13px;
-        color: #94a3b8;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .modal-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 16px;
-        border-radius: 12px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        width: 100%;
-        text-align: left;
-
-        &.strength-btn {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        &.cardio-btn {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-icon {
-            font-size: 20px;
-        }
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+#workout-type-modal.hidden {
+  display: none !important;
+}
+#workout-type-modal .modal-sheet {
+  background: #1e293b;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px;
+  box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.5);
+}
+#workout-type-modal .modal-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  margin: 0 auto 16px auto;
+}
+#workout-type-modal .modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  text-align: center;
+}
+#workout-type-modal .modal-subtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 20px;
+  text-align: center;
+}
+#workout-type-modal .modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#workout-type-modal .action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+#workout-type-modal .action-btn.strength-btn {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+#workout-type-modal .action-btn.cardio-btn {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+#workout-type-modal .action-btn .btn-icon {
+  font-size: 20px;
 }
 
 /* Полноэкранный вид кардио-тренировки */
 .cardio-view {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0f172a;
-    z-index: 1100;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    overflow-y: auto;
-
-    &.hidden {
-        display: none !important;
-    }
-
-    .cardio-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-
-        .btn-back {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 8px 0;
-        }
-
-        h2 {
-            flex: 1;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            color: #fff;
-            margin-right: 32px;
-        }
-    }
-
-    .cardio-section {
-        margin-bottom: 20px;
-
-        .section-title {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-        }
-    }
-
-    /* Чипсы выбора типа бега */
-    .chips-container {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .chip {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-
-            &.active {
-                background: rgba(16, 185, 129, 0.1);
-                border-color: #10b981;
-            }
-
-            .chip-title {
-                font-size: 14px;
-                font-weight: 600;
-                color: #fff;
-                margin-bottom: 2px;
-            }
-
-            .chip-subtitle {
-                font-size: 12px;
-                color: #94a3b8;
-            }
-        }
-    }
-
-    /* Карточки ввода результатов кардио */
-    .input-card {
-        background: #1e293b;
-        border-radius: 12px;
-        padding: 14px 16px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .input-label {
-            font-size: 14px;
-            color: #cbd5e1;
-        }
-    }
-
-    .cardio-footer {
-        margin-top: auto;
-        padding-top: 20px;
-
-        .save-cardio-btn {
-            width: 100%;
-            padding: 14px;
-            background: #10b981;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+}
+.cardio-view.hidden {
+  display: none !important;
+}
+.cardio-view .cardio-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.cardio-view .cardio-header .btn-back {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+}
+.cardio-view .cardio-header h2 {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 32px;
+}
+.cardio-view .cardio-section {
+  margin-bottom: 20px;
+}
+.cardio-view .cardio-section .section-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.cardio-view {
+  /* Чипсы выбора типа бега */
+}
+.cardio-view .chips-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cardio-view .chips-container .chip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cardio-view .chips-container .chip.active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: #10b981;
+}
+.cardio-view .chips-container .chip .chip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.cardio-view .chips-container .chip .chip-subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+}
+.cardio-view {
+  /* Карточки ввода результатов кардио */
+}
+.cardio-view .input-card {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardio-view .input-card .input-label {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+.cardio-view .cardio-footer {
+  margin-top: auto;
+  padding-top: 20px;
+}
+.cardio-view .cardio-footer .save-cardio-btn {
+  width: 100%;
+  padding: 14px;
+  background: #10b981;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 /* Дополнительные исправления для блоков ввода внутри кардио */
-
 /* Строка со степпером (дистанция -0.5 / +0.5) */
 .stepper-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    
-    .stepper-btn {
-        background: rgba(255, 255, 255, 0.08);
-        border: none;
-        color: #fff;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        
-        &:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-    }
-
-    .stepper-input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        
-        input {
-            background: #0f172a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: center;
-            width: 80px;
-        }
-        
-        .input-unit {
-            font-size: 13px;
-            color: #94a3b8;
-        }
-    }
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stepper-row .stepper-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.stepper-row .stepper-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.stepper-row .stepper-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stepper-row .stepper-input-wrapper input {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  width: 80px;
+}
+.stepper-row .stepper-input-wrapper .input-unit {
+  font-size: 13px;
+  color: #94a3b8;
 }
 
 /* Строка ввода времени (минуты : секунды) */
 .time-inputs-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    .time-field {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-
-        input {
-            background: #0f172a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: center;
-            width: 50px;
-        }
-
-        .input-unit {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-    }
-
-    .time-colon {
-        color: #fff;
-        font-weight: bold;
-        font-size: 16px;
-    }
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.time-inputs-row .time-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.time-inputs-row .time-field input {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  width: 50px;
+}
+.time-inputs-row .time-field .input-unit {
+  font-size: 12px;
+  color: #94a3b8;
+}
+.time-inputs-row .time-colon {
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 /* Карточка темпа и кнопка сохранения */
 .pace-card {
-    justify-content: space-between;
-    
-    .pace-value-row {
-        display: flex;
-        align-items: baseline;
-        gap: 4px;
-        
-        .pace-number {
-            font-size: 18px;
-            font-weight: 700;
-            color: #34d399;
-        }
-        
-        .input-unit {
-            font-size: 13px;
-            color: #94a3b8;
-        }
-    }
+  justify-content: space-between;
+}
+.pace-card .pace-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.pace-card .pace-value-row .pace-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #34d399;
+}
+.pace-card .pace-value-row .input-unit {
+  font-size: 13px;
+  color: #94a3b8;
 }/*# sourceMappingURL=main.css.map */
