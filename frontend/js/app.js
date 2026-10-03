@@ -14,7 +14,7 @@ import {
     renderExercises
 } from './components/strength.js';
 import { CardioTracker } from './components/cardio.js';
-import { openDraftWorkout } from './services/storage.js';
+import { openDraftWorkout } from './components/strength.js';
 import { toggleTimer, startTimer, pauseTimer, resetTimer } from './components/timer.js';
 import { state } from './state.js';
 
